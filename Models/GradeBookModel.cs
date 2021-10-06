@@ -18,6 +18,7 @@ namespace ITMO.ASP.NET.GradeBook.Sim.Models
     public class GradeBookModel
     {
         [Key]
+        [DisplayName("ID Студента")]
         public virtual int GradeBookID { get; set; }
         [DisplayName("Имя студента")]
         [Required(ErrorMessage = "ФИО студента обязательно для заполнения.")]
@@ -49,6 +50,58 @@ namespace ITMO.ASP.NET.GradeBook.Sim.Models
         [Range(1, 5, ErrorMessage = "Допустимы значения от {1} до {2}.")]        
         [DisplayName("ASP.NET")]
         public virtual int Grade8 { get; set; }
+    }    
+    public class MidGrade
+    {
+        public string Name { get; set; }
+        public double MidScore { get; set; }
+        public MidGrade(string Name, double MidScore)
+        {
+            this.Name = Name;
+            this.MidScore = MidScore;
+        }
+        
     }
-
+    public class CalculateMid
+    {
+        public static List<MidGrade> Midle (GradeBookContext x, bool type)
+        {
+            List<MidGrade> MidGradeList = new List<MidGrade>();
+            if (type)
+            {
+                var midGrade = (from i in x.gradeBookModels
+                                select new
+                                {
+                                    Name = i.StudentName,
+                                    MidScore = (i.Grade1 + i.Grade2 + i.Grade3 + i.Grade4 + i.Grade5 + i.Grade6 + i.Grade7 + i.Grade8) / 8
+                                }).ToList().OrderBy(j => j.MidScore);
+                int Count = 0;
+                foreach (var i in midGrade)
+                {
+                    Count++;
+                    MidGradeList.Add(new MidGrade(i.Name, i.MidScore));
+                    if (Count >= 5)
+                    { break; }
+                }
+            }
+            else
+            {
+                var midGrade = (from i in x.gradeBookModels
+                                select new
+                                {
+                                    Name = i.StudentName,
+                                    MidScore = (i.Grade1 + i.Grade2 + i.Grade3 + i.Grade4 + i.Grade5 + i.Grade6 + i.Grade7 + i.Grade8) / 8
+                                }).ToList().OrderByDescending(j => j.MidScore);
+                int Count = 0;
+                foreach (var i in midGrade)
+                {
+                    Count++;
+                    MidGradeList.Add(new MidGrade(i.Name, i.MidScore));
+                    if (Count >= 5)
+                    { break; }
+                }
+            }
+            return MidGradeList;
+        }
+    }
 }

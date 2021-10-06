@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using ITMO.ASP.NET.GradeBook.Sim.Models;
 
 namespace ITMO.ASP.NET.GradeBook.Sim
 {
@@ -12,6 +14,7 @@ namespace ITMO.ASP.NET.GradeBook.Sim
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new GradeBookDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

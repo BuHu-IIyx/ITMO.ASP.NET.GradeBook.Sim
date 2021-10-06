@@ -12,24 +12,17 @@ namespace ITMO.ASP.NET.GradeBook.Sim.Controllers
         //Создание экземпляра контекста
         GradeBookContext GBook = new GradeBookContext();
         public ActionResult Index()
+        {                      
+            return View(GBook.gradeBookModels.ToList());
+        }
+        public ActionResult Best5Students()
         {
-            var allGrade = GBook.gradeBookModels;
-            ViewBag.GradeBook = allGrade;
-            
+            ViewBag.MidGrade = CalculateMid.Midle(GBook, false);
             return View();
         }
-
-        public ActionResult About()
+        public ActionResult Worst5Students()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.MidGrade = CalculateMid.Midle(GBook, true);
             return View();
         }
     }

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Пятерка худших студентов";    
+}
+
+<h2 class="notop">Пятерка худших студентов</h2>
+<div class="b-break-m"></div>
+<table class="table-rating">
+    <tbody>
+        <tr>
+            <td><p>ФИО</p></td>
+            <td><p>Средний балл</p></td>
+        </tr>
+        @foreach (var b in ViewBag.MidGrade)
+        {
+            <tr>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.MidScore</p></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
