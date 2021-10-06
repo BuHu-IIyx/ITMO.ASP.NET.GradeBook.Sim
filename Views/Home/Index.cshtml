@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Оценочная ведомость";
+}
+<h2 class="notop">Оценочная ведомость</h2>
+<div class="b-break-m"></div>
+<div>
+    <table>
+        <tr>
+            <td><p>ФИО</p></td>
+            @foreach (var a in ViewBag.Lesson)
+            {
+                <td><p>@a.LessonName</p></td>
+            }
+        </tr>
+        @foreach (var b in ViewBag.GradeBook)
+            {
+                <tr>
+                    <td><p>@b.Student.StudentName</p></td>
+                    <td><p>@b.Grade</p></td>
+                </tr>
+
+            }
+
+        <tr>
+        </tr>
+    </table>
+</div>
