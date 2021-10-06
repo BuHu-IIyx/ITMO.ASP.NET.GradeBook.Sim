@@ -67,16 +67,17 @@ namespace ITMO.ASP.NET.GradeBook.Sim.Models
         public static List<MidGrade> Midle (GradeBookContext x, bool type)
         {
             List<MidGrade> MidGradeList = new List<MidGrade>();
+            var midGrade = (from i in x.gradeBookModels                            
+                            select new
+                            {
+                                Name = i.StudentName,
+                                MidScore = (new int[]{ i.Grade1, i.Grade2, i.Grade3, i.Grade4, i.Grade5, i.Grade6, i.Grade7, i.Grade8 }).Average()
+                            }).ToList();
             if (type)
             {
-                var midGrade = (from i in x.gradeBookModels
-                                select new
-                                {
-                                    Name = i.StudentName,
-                                    MidScore = (i.Grade1 + i.Grade2 + i.Grade3 + i.Grade4 + i.Grade5 + i.Grade6 + i.Grade7 + i.Grade8) / 8
-                                }).ToList().OrderBy(j => j.MidScore);
+                var midGradeSort = midGrade.OrderBy(j => j.MidScore);
                 int Count = 0;
-                foreach (var i in midGrade)
+                foreach (var i in midGradeSort)
                 {
                     Count++;
                     MidGradeList.Add(new MidGrade(i.Name, i.MidScore));
@@ -86,14 +87,9 @@ namespace ITMO.ASP.NET.GradeBook.Sim.Models
             }
             else
             {
-                var midGrade = (from i in x.gradeBookModels
-                                select new
-                                {
-                                    Name = i.StudentName,
-                                    MidScore = (i.Grade1 + i.Grade2 + i.Grade3 + i.Grade4 + i.Grade5 + i.Grade6 + i.Grade7 + i.Grade8) / 8
-                                }).ToList().OrderByDescending(j => j.MidScore);
+                var midGradeSort = midGrade.OrderByDescending(j => j.MidScore);
                 int Count = 0;
-                foreach (var i in midGrade)
+                foreach (var i in midGradeSort)
                 {
                     Count++;
                     MidGradeList.Add(new MidGrade(i.Name, i.MidScore));
