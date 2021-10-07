@@ -51,6 +51,7 @@
                 <td>@Html.DisplayFor(modelItem => b.Grade6)</td>
                 <td>@Html.DisplayFor(modelItem => b.Grade7)</td>
                 <td>@Html.DisplayFor(modelItem => b.Grade8)</td>
+                <td>@Html.ActionLink("Изменить", "EditGrade", new { id = b.GradeBookID })</td>        
             </tr>
         }
 

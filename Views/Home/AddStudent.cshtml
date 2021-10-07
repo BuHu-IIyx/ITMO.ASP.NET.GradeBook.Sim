@@ -1,0 +1,37 @@
+﻿@model ITMO.ASP.NET.GradeBook.Sim.Models.GradeBookModel
+@{
+    ViewBag.Title = "Добавление студента";
+}
+<h2 class="notop">Добавление студента</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="b-break-m"></div>
+    <table class="table-rating">
+        @Html.ValidationSummary(true)        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                <div>
+                    @Html.EditorFor(model => model.StudentName)
+                    @Html.ValidationMessageFor(model => model.StudentName)
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Group)
+            </th>
+            <th>
+                <div>
+                    @Html.EditorFor(model => model.Group)
+                    @Html.ValidationMessageFor(model => model.Group)
+                </div>
+            </th>
+        </tr>        
+        <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+    </table>
+}

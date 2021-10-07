@@ -172,6 +172,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Best5Students.cshtml" />
     <Content Include="Views\Home\Worst5Students.cshtml" />
+    <Content Include="Views\Home\EditGrade.cshtml" />
+    <Content Include="Views\Home\AddStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
